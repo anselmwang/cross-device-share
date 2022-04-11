@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <title>Cross Device Share</title>
+</head>
+
+<body>
+    <textarea name="content" id="content">I am a text area</textarea>
+    <button type="button" id="submit">Submit</button>
+
+    <div>
+        <hr>
+        <header>
+            <button type="button" id="copy-button"> <span id="copy-button-feedback"></span> Copy to clipboard </button>
+        </header>
+        <code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"&gt;</code>
+    </div>
+    <script>
+        const copyButton = document.getElementById('copy-button')
+        const copyButtonFeedback = document.getElementById('copy-button-feedback')
+        copyButton.addEventListener('click', () => {
+            const clipboard = navigator.clipboard || window.clipboard
+            const snippetText = document.querySelector(`#link-snippet-headline code`).textContent
+
+            clipboard.writeText(snippetText)
+                .then(() => { copyButtonFeedback.textContent = '✔' })
+                .catch(() => { copyButtonFeedback.textContent = '❌' })
+                .then(() => setTimeout(() => { copyButtonFeedback.textContent = '' }, 1000))
+        })
+
+    </script>
+
+</body>
+
+</html>
