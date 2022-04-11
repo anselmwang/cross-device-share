@@ -30,4 +30,4 @@ build-backend = "poetry.core.masonry.api"
 profile = "black"
 
 [tool.poetry.scripts]
-hello = 'cross_device_share.console:hello'
+cross_device_share = 'cross_device_share.app:main'

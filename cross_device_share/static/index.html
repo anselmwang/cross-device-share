@@ -2,14 +2,20 @@
 
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Cross Device Share</title>
 </head>
 
 <body>
-    <textarea name="content" id="content">I am a text area</textarea>
-    <button type="button" id="submit">Submit</button>
+    <form action="/post_new" method="post">
+        <textarea name="content" id="content"></textarea>
+        <input type="submit" value="Submit">
+    </form>
 
-    <div>
+    <div id="cache">
+
+    </div>
+    <div style="display: none;">
         <hr>
         <header>
             <button type="button" id="copy-button"> <span id="copy-button-feedback"></span> Copy to clipboard </button>
@@ -17,17 +23,43 @@
         <code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"&gt;</code>
     </div>
     <script>
-        const copyButton = document.getElementById('copy-button')
-        const copyButtonFeedback = document.getElementById('copy-button-feedback')
-        copyButton.addEventListener('click', () => {
+        function copy_to_clipboard(i) {
+            const cache_item_div = document.querySelector(`.cache-item-${i}`);
+            const copyButton = cache_item_div.querySelector(`.copy-button`)
+            const copyButtonFeedback = cache_item_div.querySelector(`.copy-button-feedback`)
+            const snippetText = cache_item_div.querySelector(`code`).textContent
             const clipboard = navigator.clipboard || window.clipboard
-            const snippetText = document.querySelector(`#link-snippet-headline code`).textContent
 
             clipboard.writeText(snippetText)
                 .then(() => { copyButtonFeedback.textContent = '✔' })
                 .catch(() => { copyButtonFeedback.textContent = '❌' })
                 .then(() => setTimeout(() => { copyButtonFeedback.textContent = '' }, 1000))
-        })
+        }
+
+        function escapeHTML(unsafeText) {
+            let div = document.createElement('div');
+            div.innerText = unsafeText;
+            return div.innerHTML;
+        }
+
+        async function init() {
+            const cache_elem = document.querySelector("#cache");
+            const response = await fetch("/get");
+            if (!response.ok) {
+                cache.elem.appendChild(`<div>Error: response.status ${response.status}`);
+            }
+            const cache = await response.json();
+            for (const [i, item] of cache.entries()) {
+                cache_elem.appendChild($(`<div class="cache-item-${i}">
+                    <hr>
+                    <header>
+                        <button type="button" class="copy-button" onclick="copy_to_clipboard(${i})"> <span class="copy-button-feedback"></span> Copy to clipboard </button>
+                    </header>
+                    <code>${escapeHTML(item)}</code>
+                </div>`)[0])
+            }
+        }
+        init();
 
     </script>
 
