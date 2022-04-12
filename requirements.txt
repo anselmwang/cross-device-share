@@ -4,6 +4,9 @@ click==8.1.2; python_version >= "3.7" \
 colorama==0.4.4; python_version >= "3.7" and python_full_version < "3.0.0" and platform_system == "Windows" or platform_system == "Windows" and python_version >= "3.7" and python_full_version >= "3.5.0" \
     --hash=sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2 \
     --hash=sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b
+flask-httpauth==4.5.0 \
+    --hash=sha256:395040fda2854df800d15e84bc4a81a5f32f1d4a5e91eee554936f36f330aa29 \
+    --hash=sha256:e16067ba3378ea366edf8de4b9d55f38c0a0cbddefcc0f777a54b3fce1d99392
 flask==2.1.1; python_version >= "3.7" \
     --hash=sha256:8a4cf32d904cf5621db9f0c9fbcd7efabf3003f22a04e4d0ce790c7137ec5264 \
     --hash=sha256:a8c9bd3e558ec99646d177a9739c41df1ded0629480b4c8d2975412f3c9519c8
