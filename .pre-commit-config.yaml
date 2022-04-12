@@ -26,3 +26,13 @@ repos:
         entry: poetry run pytest
         types: [python]
         pass_filenames: false   # to fix exit code 5 error. [Why my tests fail only during pre-commit ? - Learn. Share. Improve](https://learnings.desipenguin.com/post/pytest-exit-code-5/)
+
+  - repo: local
+    hooks:
+    - id: update-requirements-txt
+      name: update-requirements-txt
+      description: 'Generate requirements.txt based on poetry.lock'
+      entry: poetry
+      args: [export, --format, requirements.txt, --output, requirements.txt]
+      language: system
+      pass_filenames: false
